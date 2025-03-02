@@ -1,3 +1,4 @@
+// v is a 2d vector package
 package v
 
 import (
@@ -25,10 +26,6 @@ type Vec struct {
 // Add returns this + other
 func (v Vec) Add(other Vec) Vec {
 	return Vec{v.X + other.X, v.Y + other.Y}
-}
-func (v *Vec) AddInplace(other Vec) {
-	v.X += other.X
-	v.Y += other.Y
 }
 
 // Sub returns this - other
@@ -60,6 +57,16 @@ func (v Vec) Unit() Vec {
 // Abs returns the absolute value of vector.
 func (v Vec) Abs() Vec {
 	return Vec{math.Abs(v.X), math.Abs(v.Y)}
+}
+
+// AbsX returns the absolute X value of vector.
+func (v Vec) AbsX() float64 {
+	return math.Abs(v.X)
+}
+
+// AbsX returns the absolute X value of vector.
+func (v Vec) AbsY() float64 {
+	return math.Abs(v.X)
 }
 
 // Neg negates a vector.
@@ -120,15 +127,13 @@ func (v Vec) MagSq() float64 {
 	return v.X*v.X + v.Y*v.Y
 }
 
+// Slerp performs spherical linear interpolation between two vectors with given weight value in [0,1] range, returning interpolated vector
 func (v Vec) Slerp(to Vec, weight float64) Vec {
 	startLengthSq := v.MagSq()
 	endLengthSq := to.MagSq()
-
 	if startLengthSq == 0.0 || endLengthSq == 0.0 {
-		// Eğer vektör uzunluğu sıfırsa, sadece Lerp yapabiliriz.
 		return v.Lerp(to, weight)
 	}
-
 	startLength := math.Sqrt(startLengthSq)
 	resultLength := (1-weight)*startLength + weight*math.Sqrt(endLengthSq)
 	angle := v.AngleTo(to)
@@ -153,11 +158,12 @@ func (v Vec) Lerp(other Vec, t float64) Vec {
 	return v.Scale(1.0 - t).Add(other.Scale(t))
 }
 
+// IsZero returns true if vector is zero vector
 func (v Vec) IsZero() bool {
 	return v == Vec{}
 }
 
-// Dist the distance between v and other.
+// Dist returns distance between v and other.
 func (v Vec) Dist(other Vec) float64 {
 	return math.Hypot(v.X-other.X, v.Y-other.Y)
 }
@@ -202,5 +208,5 @@ func (v Vec) Equals(other Vec) bool {
 
 // String returns string representation of this vector.
 func (v Vec) String() string {
-	return fmt.Sprintf("Vec{%.2f, %.2f}", v.X, v.Y)
+	return fmt.Sprintf("(%.1f, %.1f)", v.X, v.Y)
 }
