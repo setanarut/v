@@ -64,7 +64,7 @@ func (v Vec) AbsX() float64 {
 	return math.Abs(v.X)
 }
 
-// AbsX returns the absolute X value of vector.
+// AbsY returns the absolute Y value of vector.
 func (v Vec) AbsY() float64 {
 	return math.Abs(v.X)
 }
