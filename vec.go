@@ -23,24 +23,29 @@ type Vec struct {
 	X, Y float64
 }
 
-// Add returns this + other
-func (v Vec) Add(other Vec) Vec {
-	return Vec{v.X + other.X, v.Y + other.Y}
+// Add returns this + a
+func (v Vec) Add(a Vec) Vec {
+	return Vec{v.X + a.X, v.Y + a.Y}
 }
 
-// Sub returns this - other
-func (v Vec) Sub(other Vec) Vec {
-	return Vec{v.X - other.X, v.Y - other.Y}
+// Sub returns this - a
+func (v Vec) Sub(a Vec) Vec {
+	return Vec{v.X - a.X, v.Y - a.Y}
 }
 
-// Div divides this vector by a scalar value s.
-func (v Vec) Div(s float64) Vec {
+// Div divides this vector by a.
+func (v Vec) Div(a Vec) Vec {
+	return Vec{v.X / a.X, v.Y / a.Y}
+}
+
+// DivS divides this vector by scalar value s.
+func (v Vec) DivS(s float64) Vec {
 	return Vec{v.X / s, v.Y / s}
 }
 
-// Mul returns this * other
-func (v Vec) Mul(other Vec) Vec {
-	return Vec{v.X * other.X, v.Y * other.Y}
+// Mul returns this * a
+func (v Vec) Mul(a Vec) Vec {
+	return Vec{v.X * a.X, v.Y * a.Y}
 }
 
 // Scale scales vector
