@@ -71,7 +71,7 @@ func (v Vec) AbsX() float64 {
 
 // AbsY returns the absolute Y value of vector.
 func (v Vec) AbsY() float64 {
-	return math.Abs(v.X)
+	return math.Abs(v.Y)
 }
 
 // Neg negates a vector.
@@ -79,13 +79,13 @@ func (v Vec) Neg() Vec {
 	return Vec{-v.X, -v.Y}
 }
 
-// NegY negates Y.
-func (v Vec) NegY() Vec {
-	return Vec{v.X, -v.Y}
-}
-
 // NegY negates X.
 func (v Vec) NegX() Vec {
+	return Vec{-v.X, v.Y}
+}
+
+// NegY negates Y.
+func (v Vec) NegY() Vec {
 	return Vec{v.X, -v.Y}
 }
 
