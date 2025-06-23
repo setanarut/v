@@ -214,7 +214,7 @@ func (v Vec) Equals(other Vec) bool {
 // Reflect returns the reflection of the vector v over the given normal n.
 // n should be a normalized (unit) vector.
 func (v Vec) Reflect(normal Vec) Vec {
-    return v.Sub(n.Scale(2 * v.Dot(n)))
+    return v.Sub(normal.Scale(2 * v.Dot(normal)))
 }
 
 // String returns string representation of this vector.
