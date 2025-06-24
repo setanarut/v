@@ -211,8 +211,8 @@ func (v Vec) Equals(other Vec) bool {
 	return v.X == other.X && v.Y == other.Y
 }
 
-// Reflect returns the reflection of the vector v over the given normal n.
-// n should be a normalized (unit) vector.
+// Reflect returns the reflection of the vector v over the given normal.
+// normal should be a normalized (unit) vector.
 func (v Vec) Reflect(normal Vec) Vec {
     return v.Sub(normal.Scale(2 * v.Dot(normal)))
 }
