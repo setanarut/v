@@ -54,9 +54,23 @@ func (v Vec) Scale(s float64) Vec {
 }
 
 // Unit returns a normalized copy of this vector (unit vector).
+//
+// Uses the package epsilon variable for numerical stability:
+//
+// - Vectors with squared length < 1e-8 are considered zero and left unchanged
+//
+// - Vectors with squared length within 1e-8 of 1.0 are considered already normalized
 func (v Vec) Unit() Vec {
-	// return v.Mult(1.0 / (v.Length() + math.SmallestNonzeroFloat64))
-	return v.Scale(1.0 / (v.Mag() + 1e-50))
+	sl := v.MagSq()
+	if sl < 1e-8 {
+		return v
+	}
+
+	if math.Abs(sl-1) < 1e-8 {
+		return v
+	}
+
+	return v.Scale(1.0 / math.Sqrt(sl))
 }
 
 // Abs returns the absolute value of vector.
@@ -152,7 +166,7 @@ func (v Vec) AngleTo(other Vec) float64 {
 
 // Limits a vector's magnitude to a maximum value.
 func (v Vec) Limit(max float64) Vec {
-	if v.Mag() > max {
+	if v.Dot(v) > max*max {
 		return v.Unit().Scale(max)
 	}
 	return v
@@ -214,7 +228,7 @@ func (v Vec) Equals(other Vec) bool {
 // Reflect returns the reflection of the vector v over the given normal.
 // normal should be a normalized (unit) vector.
 func (v Vec) Reflect(normal Vec) Vec {
-    return v.Sub(normal.Scale(2 * v.Dot(normal)))
+	return v.Sub(normal.Scale(2 * v.Dot(normal)))
 }
 
 // String returns string representation of this vector.
