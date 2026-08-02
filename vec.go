@@ -138,6 +138,14 @@ func (v Vec) Mag() float64 {
 	return math.Hypot(v.X, v.Y)
 }
 
+// SetMag sets the magnitude (length) of the vector.
+func (v Vec) SetMag(m float64) Vec {
+	if mag := v.Mag(); mag != 0 {
+		return v.Scale(m / mag)
+	}
+	return v
+}
+
 // MagSq returns the magnitude (length) of the vector, squared.
 //
 // This method is often used to improve performance since, unlike Mag(),
