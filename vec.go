@@ -103,6 +103,11 @@ func (v Vec) NegY() Vec {
 	return Vec{v.X, -v.Y}
 }
 
+// Perp returns the perpendicular vector rotated 90 degrees counter-clockwise.
+func (v Vec) Perp() Vec {
+	return Vec{-v.Y, v.X}
+}
+
 // Dot returns dot product
 func (v Vec) Dot(other Vec) float64 {
 	return v.X*other.X + v.Y*other.Y
