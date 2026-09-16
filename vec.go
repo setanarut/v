@@ -31,6 +31,18 @@ func (v Vec) Add(a Vec) Vec {
 	return Vec{v.X + a.X, v.Y + a.Y}
 }
 
+// AddX adds n to v.X
+func (v Vec) AddX(n float64) Vec {
+	v.X += n
+	return v
+}
+
+// AddY adds n to v.Y
+func (v Vec) AddY(n float64) Vec {
+	v.Y += n
+	return v
+}
+
 // Sub returns this - a
 func (v Vec) Sub(a Vec) Vec {
 	return Vec{v.X - a.X, v.Y - a.Y}
@@ -57,8 +69,6 @@ func (v Vec) Scale(s float64) Vec {
 }
 
 // Unit returns a normalized copy of this vector (unit vector).
-//
-// Uses the package epsilon variable for numerical stability:
 //
 // - Vectors with squared length < 1e-8 are considered zero and left unchanged
 //
@@ -245,6 +255,16 @@ func (v Vec) Equals(other Vec) bool {
 // normal should be a normalized (unit) vector.
 func (v Vec) Reflect(normal Vec) Vec {
 	return v.Sub(normal.Scale(2 * v.Dot(normal)))
+}
+
+// Min returns the component-wise minimum of two vectors.
+func (v Vec) Min(other Vec) Vec {
+	return Vec{X: min(v.X, other.X), Y: min(v.Y, other.Y)}
+}
+
+// Max returns the component-wise maximum of two vectors.
+func (v Vec) Max(other Vec) Vec {
+	return Vec{X: max(v.X, other.X), Y: max(v.Y, other.Y)}
 }
 
 // String returns string representation of this vector.
