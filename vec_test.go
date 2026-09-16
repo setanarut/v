@@ -78,7 +78,7 @@ func TestVec_Unit(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			result := tt.v.Unit()
-			if !result.EqualsPr(tt.expected, 1e-9) {
+			if !result.EqualsPr(tt.expected, epsilon) {
 				t.Errorf("Unit failed: expected %v, got %v", tt.expected, result)
 			}
 		})
@@ -183,7 +183,7 @@ func TestVec_Rotate(t *testing.T) {
 	angle := math.Pi / 2
 	expected := Vec{0, 1}
 	result := v.Rotate(angle)
-	if !result.EqualsPr(expected, 1e-9) {
+	if !result.EqualsPr(expected, epsilon) {
 		t.Errorf("Rotate failed: expected %v, got %v", expected, result)
 	}
 }
@@ -279,7 +279,7 @@ func TestVec_Slerp(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			result := tt.v.Slerp(tt.to, tt.weight)
-			if !result.EqualsPr(tt.expected, 1e-9) {
+			if !result.EqualsPr(tt.expected, epsilon) {
 				t.Errorf("Slerp failed: expected %v, got %v", tt.expected, result)
 			}
 		})
@@ -301,7 +301,7 @@ func TestVec_Limit(t *testing.T) {
 	max := 3.0
 	expected := Vec{1.8, 2.4}
 	result := v.Limit(max)
-	if !result.EqualsPr(expected, 1e-9) {
+	if !result.EqualsPr(expected, epsilon) {
 		t.Errorf("Limit failed: expected %v, got %v", expected, result)
 	}
 }
@@ -396,7 +396,7 @@ func TestFromAngle(t *testing.T) {
 	angle := math.Pi / 2
 	expected := Vec{0, 1}
 	result := FromAngle(angle)
-	if !result.EqualsPr(expected, 1e-9) {
+	if !result.EqualsPr(expected, epsilon) {
 		t.Errorf("FromAngle failed: expected %v, got %v", expected, result)
 	}
 }

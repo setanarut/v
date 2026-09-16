@@ -6,6 +6,8 @@ import (
 	"math"
 )
 
+const epsilon float64 = 1e-8
+
 var (
 	// One Vec{1, 1} vector is a vector with all components set to 1.
 	One = Vec{1, 1}
@@ -19,6 +21,7 @@ var (
 	Down = Vec{0, 1}
 )
 
+// Vec is a 2D vector
 type Vec struct {
 	X, Y float64
 }
@@ -62,11 +65,11 @@ func (v Vec) Scale(s float64) Vec {
 // - Vectors with squared length within 1e-8 of 1.0 are considered already normalized
 func (v Vec) Unit() Vec {
 	sl := v.MagSq()
-	if sl < 1e-8 {
+	if sl < epsilon {
 		return v
 	}
 
-	if math.Abs(sl-1) < 1e-8 {
+	if math.Abs(sl-1) < epsilon {
 		return v
 	}
 
@@ -88,17 +91,17 @@ func (v Vec) AbsY() float64 {
 	return math.Abs(v.Y)
 }
 
-// Neg negates a vector.
+// Neg negates this vector.
 func (v Vec) Neg() Vec {
 	return Vec{-v.X, -v.Y}
 }
 
-// NegY negates X.
+// NegX negates X element.
 func (v Vec) NegX() Vec {
 	return Vec{-v.X, v.Y}
 }
 
-// NegY negates Y.
+// NegY negates Y element.
 func (v Vec) NegY() Vec {
 	return Vec{v.X, -v.Y}
 }
@@ -120,7 +123,7 @@ func (v Vec) Cross(other Vec) float64 {
 	return v.X*other.Y - v.Y*other.X
 }
 
-// Returns the vector projection onto other.
+// Project returns the vector projection of v onto other
 func (v Vec) Project(other Vec) Vec {
 	return other.Scale(v.Dot(other) / other.Dot(other))
 }
@@ -177,7 +180,7 @@ func (v Vec) AngleTo(other Vec) float64 {
 	return math.Atan2(v.Cross(other), v.Dot(other))
 }
 
-// Limits a vector's magnitude to a maximum value.
+// Limit limits vector's magnitude to max.
 func (v Vec) Limit(max float64) Vec {
 	if v.Dot(v) > max*max {
 		return v.Unit().Scale(max)
