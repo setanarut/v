@@ -172,7 +172,9 @@ func (v Vec) MagSq() float64 {
 	return v.X*v.X + v.Y*v.Y
 }
 
-// Slerp performs spherical linear interpolation between two vectors with given weight value in [0,1] range, returning interpolated vector
+// Slerp performs spherical linear interpolation between
+// two vectors with given weight value in [0,1] range,
+// returning interpolated vector
 func (v Vec) Slerp(to Vec, weight float64) Vec {
 	startLengthSq := v.MagSq()
 	endLengthSq := to.MagSq()
